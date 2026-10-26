@@ -3,8 +3,6 @@ import type { UserRole } from "@/config/roles";
 export type LoginPayload = {
   email: string;
   password: string;
-  /** Demo only — real API returns role from the server */
-  role: UserRole;
 };
 
 export type LoginResponse = {
@@ -38,12 +36,12 @@ export async function loginRequest(
   }
 
   return {
-    accessToken: `demo-token-${payload.role}`,
+    accessToken: "demo-token-admin",
     user: {
       id: "demo-user",
       name: "Demo User",
       email: payload.email,
-      role: payload.role,
+      role: "admin",
     },
   };
 }

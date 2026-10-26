@@ -1,7 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -9,22 +8,8 @@ import { LockIcon, MailIcon } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { Field } from "@/components/ui/Field";
-import {
-  Combobox,
-  ComboboxContent,
-  ComboboxEmpty,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxList,
-} from "@/components/ui/Combobox";
 import { useAuthStore, type AuthUser } from "@/store/auth-store";
-import {
-  getHomeRouteForRole,
-  ROLE_LABEL,
-  ROLES,
-  type UserRole,
-} from "@/config/roles";
+import { getHomeRouteForRole } from "@/config/roles";
 import { connectSocket } from "@/lib/socket/socket-instance";
 import { loginRequest } from "../services/auth-service";
 import {
@@ -32,24 +17,16 @@ import {
   type LoginFormValues,
 } from "../schemas/login-schema";
 
-type RoleOption = { label: string; value: UserRole };
-
 /**
- * Demo login — RHF + Zod. Uses `useSearchParams` (page must wrap in Suspense).
+ * Demo admin login — RHF + Zod. Uses `useSearchParams` (page must wrap in Suspense).
  */
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const setSession = useAuthStore((s) => s.setSession);
 
-  const roleOptions = useMemo<RoleOption[]>(
-    () => ROLES.map((value) => ({ value, label: ROLE_LABEL[value] })),
-    [],
-  );
-
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
   } = useForm<LoginFormValues>({
@@ -58,7 +35,6 @@ export function LoginForm() {
     defaultValues: {
       email: "demo@example.com",
       password: "password",
-      role: ROLES[0],
     },
   });
 
@@ -125,47 +101,6 @@ export function LoginForm() {
           </Link>
         </p>
       </div>
-
-      <Controller
-        name="role"
-        control={control}
-        render={({ field }) => {
-          const selected =
-            roleOptions.find((o) => o.value === field.value) ?? roleOptions[0];
-
-          return (
-            <Field id="role" label="Demo role" error={errors.role?.message}>
-              <Combobox
-                items={roleOptions}
-                value={selected}
-                onValueChange={(value) => {
-                  if (value) field.onChange((value as RoleOption).value);
-                }}
-                itemToStringValue={(item) => item.label}
-              >
-                <ComboboxInput
-                  id="role"
-                  placeholder="Search role…"
-                  className="w-full"
-                />
-                <ComboboxContent>
-                  <ComboboxEmpty>No role found.</ComboboxEmpty>
-                  <ComboboxList>
-                    {(item) => (
-                      <ComboboxItem key={item.value} value={item}>
-                        {item.label}
-                      </ComboboxItem>
-                    )}
-                  </ComboboxList>
-                </ComboboxContent>
-              </Combobox>
-              <p className="text-xs text-muted-foreground">
-                Searchable role picker (Combobox). Swap to real API later.
-              </p>
-            </Field>
-          );
-        }}
-      />
 
       <Button
         type="submit"

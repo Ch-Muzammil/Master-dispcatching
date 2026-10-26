@@ -1,4 +1,5 @@
 import type { UserRole } from "@/config/roles";
+import { siteConfig } from "@/config/site";
 
 export type NavItem = {
   label: string;
@@ -18,15 +19,10 @@ export const ROLE_NAV: Record<UserRole, NavItem[]> = {
     { label: "Dashboard", href: "/admin/dashboard" },
     { label: "Users", href: "/admin/users" },
   ],
-  freelancer: [
-    { label: "Dashboard", href: "/freelancer/dashboard" },
-    { label: "Projects", href: "/freelancer/projects" },
-  ],
+  freelancer: [{ label: "Dashboard", href: "/freelancer/dashboard" }],
   client: [{ label: "Dashboard", href: "/client/dashboard" }],
 };
 
 export const PUBLIC_NAV: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "About", href: "/about" },
+  ...siteConfig.navigation,
 ];

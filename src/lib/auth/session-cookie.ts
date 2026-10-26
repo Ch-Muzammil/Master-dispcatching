@@ -4,7 +4,7 @@ import type { UserRole } from "@/config/roles";
 export const ROLE_COOKIE = "app_role";
 
 /**
- * Set role hint cookie so `proxy.ts` can protect /admin|/freelancer|/client.
+ * Set role hint cookie so `proxy.ts` can protect the admin portal.
  * Call from the client after login (auth-store.setSession does this).
  */
 export function setRoleCookie(role: UserRole): void {

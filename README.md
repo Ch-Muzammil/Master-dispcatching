@@ -50,13 +50,21 @@ Backend is separate — this repo is the frontend base.
 | `src/components/layout/` | `PublicShell`, `AppShell` |
 | `src/lib/` | API, socket, auth helpers, pure utils |
 | `src/store/` | Zustand (auth session) |
-| `src/config/` | `env`, `roles`, `nav` |
+| `src/config/` | `env`, `roles`, `nav`, typed site configuration |
+| `src/data/` | Client-facing demo content and image registry |
+| `src/types/` | Shared content and configuration contracts |
 | `src/providers/` | Root client providers (`TooltipProvider`, auth bootstrap) |
 | `src/proxy.ts` | Edge route protection (Next proxy, not deprecated middleware) |
 | `tests/unit/` | Vitest |
 | `tests/e2e/` | Playwright |
 
 **Rules:** `app/` = routing only. Features live in `modules/`. Import UI from `@/components/ui/Button` (folder barrel), never flat `ui/button.tsx` re-exports.
+
+Public website branding and navigation are configured through
+`src/config/site.ts` and the typed data in `src/data/site.ts`. Shared public
+components should read from this configuration rather than hardcoding a
+company's identity. Reference photography is registered in
+`src/data/images.ts` and stored under `public/images/`.
 
 ---
 

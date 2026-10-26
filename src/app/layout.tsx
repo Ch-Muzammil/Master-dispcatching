@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Inter } from "next/font/google";
+import { Archivo, Geist_Mono, Manrope } from "next/font/google";
 import { Toaster } from "@/components/ui/Sonner";
 import { AppProviders } from "@/providers/app-providers";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-sans",
+});
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  variable: "--font-display",
 });
 
 const geistMono = Geist_Mono({
@@ -17,10 +22,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Base App",
-    template: "%s · Base App",
+    default: "Meridian Dispatch Group",
+    template: "%s · Meridian Dispatch Group",
   },
-  description: "Multi-role Next.js base app (admin, freelancer, client).",
+  description:
+    "Professional 24/7 truck dispatching for owner-operators and fleets.",
 };
 
 export default function RootLayout({
@@ -31,7 +37,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", inter.variable, geistMono.variable)}
+      className={cn(
+        "h-full",
+        "antialiased",
+        manrope.variable,
+        archivo.variable,
+        geistMono.variable,
+      )}
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col font-sans">

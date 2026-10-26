@@ -16,16 +16,16 @@ describe("session-cookie", () => {
   });
 
   it("clears the role hint cookie", () => {
-    setRoleCookie("freelancer");
+    setRoleCookie("admin");
     clearRoleCookie();
-    expect(document.cookie).not.toContain(`${ROLE_COOKIE}=freelancer`);
+    expect(document.cookie).not.toContain(`${ROLE_COOKIE}=admin`);
   });
 
   it("no-ops when document is unavailable", () => {
     const original = globalThis.document;
     vi.stubGlobal("document", undefined);
 
-    expect(() => setRoleCookie("client")).not.toThrow();
+    expect(() => setRoleCookie("admin")).not.toThrow();
     expect(() => clearRoleCookie()).not.toThrow();
 
     vi.stubGlobal("document", original);
