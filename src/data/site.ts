@@ -4,6 +4,10 @@ export const siteConfig: SiteConfig = {
   name: "Meridian Dispatch Group",
   shortName: "Meridian",
   legalName: "Meridian Dispatch Group LLC",
+  logo: {
+    wordmark: "MERIDIAN",
+    subline: "Dispatch Group",
+  },
   tagline: "Truck dispatching built for carriers that mean business.",
   description:
     "Professional 24/7 truck dispatching for owner-operators and fleets.",

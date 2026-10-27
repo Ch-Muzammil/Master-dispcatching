@@ -31,6 +31,15 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-success-soft-foreground: var(--success-soft-foreground);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-soft-foreground: var(--warning-soft-foreground);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-info-soft-foreground: var(--info-soft-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -73,6 +82,16 @@
   --accent: #f5a623;
   --accent-foreground: #142b4a;
   --destructive: #dc2626;
+  /* Status tones: solid color + soft badge surface with an AA-contrast text color */
+  --success: #16a34a;
+  --success-soft: #dcfce7;
+  --success-soft-foreground: #166534;
+  --warning: #d97706;
+  --warning-soft: #fef3c7;
+  --warning-soft-foreground: #92400e;
+  --info: #3478f6;
+  --info-soft: #dbeafe;
+  --info-soft-foreground: #1e40af;
   --border: #e2e8f0;
   --input: #cbd5e1;
   --ring: #3478f6;
@@ -152,6 +171,15 @@
   --accent: #f5a623;
   --accent-foreground: #142b4a;
   --destructive: #f87171;
+  --success: #4ade80;
+  --success-soft: #14532d;
+  --success-soft-foreground: #bbf7d0;
+  --warning: #fbbf24;
+  --warning-soft: #78350f;
+  --warning-soft-foreground: #fde68a;
+  --info: #60a5fa;
+  --info-soft: #1e3a8a;
+  --info-soft-foreground: #bfdbfe;
   --border: #334155;
   --input: #475569;
   --ring: #60a5fa;

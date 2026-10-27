@@ -12,13 +12,9 @@ test.describe("auth routes", () => {
     await page.goto("/login");
     await page.getByLabel("Email").fill("demo@example.com");
     await page.getByLabel("Password").fill("password");
-    await page.getByPlaceholder("Search role…").click();
-    await page.getByRole("option", { name: "Admin" }).click();
     await page.getByRole("button", { name: "Sign in" }).click();
     await expect(page).toHaveURL(/\/admin\/dashboard/);
-    await expect(
-      page.getByRole("heading", { name: "Admin dashboard" }),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Dashboard" })).toBeVisible();
   });
 
   test("protected admin redirects to login when logged out", async ({
@@ -26,5 +22,10 @@ test.describe("auth routes", () => {
   }) => {
     await page.goto("/admin/dashboard");
     await expect(page).toHaveURL(/\/login/);
+  });
+
+  test("signup is no longer available", async ({ page }) => {
+    const response = await page.goto("/signup");
+    expect(response?.status()).toBe(404);
   });
 });

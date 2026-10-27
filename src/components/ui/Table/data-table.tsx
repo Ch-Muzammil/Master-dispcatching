@@ -23,9 +23,6 @@ export type DataTableSort = {
 
 export type ColumnAlign = "left" | "center" | "right";
 
-/** Hide column below this Tailwind breakpoint */
-export type ColumnBreakpoint = "sm" | "md" | "lg";
-
 export type DataTableColumn<T> = {
   /** Stable column id (also used for sorting key) */
   id: string;
@@ -44,10 +41,8 @@ export type DataTableColumn<T> = {
   align?: ColumnAlign;
   /** Truncate overflowing text with ellipsis */
   truncate?: boolean;
-  /** Stick column to the left while scrolling horizontally */
+  /** Stick column to the left while the table scrolls horizontally */
   sticky?: boolean;
-  /** Hide on smaller screens (still available on larger) */
-  hideBelow?: ColumnBreakpoint;
   className?: string;
   headerClassName?: string;
 };
@@ -69,19 +64,16 @@ export type DataTableProps<T> = {
   emptyMessage?: React.ReactNode;
   stickyHeader?: boolean;
   density?: "default" | "compact" | "comfortable";
-  /** Min width of the table so columns don't crush on mobile (horizontal scroll) */
+  /**
+   * Min width of the table. Narrow screens scroll horizontally inside the
+   * table — columns stay visible. Omit to sum each column's width / minWidth.
+   */
   minTableWidth?: number | string;
   /** Cap height so stickyHeader sticks inside the table scroll area */
   maxHeight?: number | string;
   onRowClick?: (row: T, index: number) => void;
   className?: string;
   caption?: React.ReactNode;
-};
-
-const HIDE_BELOW_CLASS: Record<ColumnBreakpoint, string> = {
-  sm: "hidden sm:table-cell",
-  md: "hidden md:table-cell",
-  lg: "hidden lg:table-cell",
 };
 
 const ALIGN_CLASS: Record<ColumnAlign, string> = {
@@ -93,6 +85,21 @@ const ALIGN_CLASS: Record<ColumnAlign, string> = {
 function toCssSize(value: number | string | undefined): string | undefined {
   if (value == null) return undefined;
   return typeof value === "number" ? `${value}px` : value;
+}
+
+function toPx(value: number | string | undefined): number | undefined {
+  if (typeof value === "number") return value;
+  if (typeof value === "string" && value.endsWith("px")) return Number.parseFloat(value);
+  return undefined;
+}
+
+/** Floor used so `table-fixed` cannot crush a column below the size the caller asked for. */
+function columnFloor<T>(column: DataTableColumn<T>): number | string | undefined {
+  return column.minWidth ?? column.width;
+}
+
+function sumColumnFloors<T>(columns: DataTableColumn<T>[]): number {
+  return columns.reduce((total, column) => total + (toPx(columnFloor(column)) ?? 140), 0);
 }
 
 function getCellValue<T>(row: T, column: DataTableColumn<T>): unknown {
@@ -119,7 +126,7 @@ function compareValues(a: unknown, b: unknown): number {
  *   <DataTable
  *     columns={[
  *       { id: "name", header: "Name", accessor: "name", sortable: true, width: 200 },
- *       { id: "email", header: "Email", accessor: "email", minWidth: 180, hideBelow: "md" },
+ *       { id: "email", header: "Email", accessor: "email", minWidth: 220 },
  *     ]}
  *     data={users}
  *     enableSort
@@ -140,7 +147,7 @@ export function DataTable<T>({
   emptyMessage = "No results.",
   stickyHeader = false,
   density = "default",
-  minTableWidth = 640,
+  minTableWidth,
   maxHeight,
   onRowClick,
   className,
@@ -186,16 +193,17 @@ export function DataTable<T>({
     return copy;
   }, [columns, data, enableSort, isControlled, sort]);
 
+  const tableMinWidth = minTableWidth ?? sumColumnFloors(columns);
+
   const colStyle = (column: DataTableColumn<T>): React.CSSProperties => ({
     width: toCssSize(column.width),
-    minWidth: toCssSize(column.minWidth),
+    minWidth: toCssSize(columnFloor(column)),
     maxWidth: toCssSize(column.maxWidth),
   });
 
   const colClass = (column: DataTableColumn<T>, extra?: string) =>
     cn(
       column.align && ALIGN_CLASS[column.align],
-      column.hideBelow && HIDE_BELOW_CLASS[column.hideBelow],
       column.sticky &&
         "sticky left-0 z-20 bg-background shadow-[1px_0_0_0_var(--border)]",
       column.className,
@@ -207,7 +215,7 @@ export function DataTable<T>({
       <Table
         density={density}
         maxHeight={maxHeight}
-        style={{ minWidth: toCssSize(minTableWidth) }}
+        style={{ minWidth: toCssSize(tableMinWidth) }}
         className="table-fixed"
       >
         {caption ? (

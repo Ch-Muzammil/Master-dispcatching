@@ -17,10 +17,10 @@ export function Logo({
       </span>
       <span className="leading-none">
         <span className={cn("block text-[1.05rem] font-bold tracking-tight", inverse ? "text-white" : "text-foreground")}>
-          MERIDIAN
+          {siteConfig.logo.wordmark}
         </span>
         <span className={cn("mt-0.5 block text-[0.6rem] font-semibold uppercase tracking-[0.28em]", inverse ? "text-white/60" : "text-muted-foreground")}>
-          Dispatch Group
+          {siteConfig.logo.subline}
         </span>
       </span>
     </Link>

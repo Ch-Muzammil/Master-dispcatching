@@ -8,7 +8,7 @@ import {
 
 describe("roles config", () => {
   it("lists expected roles", () => {
-    expect(ROLES).toEqual(["admin", "freelancer", "client"]);
+    expect(ROLES).toEqual(["admin"]);
   });
 
   it("maps each role to a home route", () => {
@@ -20,7 +20,7 @@ describe("roles config", () => {
 
   it("type-guards role strings", () => {
     expect(isUserRole("admin")).toBe(true);
-    expect(isUserRole("client")).toBe(true);
+    expect(isUserRole("client")).toBe(false);
     expect(isUserRole("guest")).toBe(false);
     expect(isUserRole(undefined)).toBe(false);
     expect(isUserRole(null)).toBe(false);

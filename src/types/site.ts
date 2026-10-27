@@ -18,6 +18,11 @@ export type SiteConfig = {
   name: string;
   shortName: string;
   legalName: string;
+  /** Text logo shown in headers: bold wordmark + small subline. */
+  logo: {
+    wordmark: string;
+    subline: string;
+  };
   tagline: string;
   description: string;
   founded: number;

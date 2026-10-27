@@ -116,7 +116,6 @@ export default function AdminUsersPage() {
         sortable: true,
         minWidth: 200,
         truncate: true,
-        hideBelow: "md",
       },
       {
         id: "role",

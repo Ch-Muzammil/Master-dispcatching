@@ -1,6 +1,6 @@
 # Next Base App
 
-Multi-role Next.js starter (admin / freelancer / client) with App Router, JWT-in-memory auth, Axios + Socket.IO clients, Zustand, and a shadcn/Base UI component kit.
+Reusable website + admin portal for truck dispatching companies, built on Next.js App Router with JWT-in-memory auth, Axios + Socket.IO clients, Zustand, and a shadcn/Base UI component kit.
 
 Use this README as the single source of truth for setup, architecture, libs, UI, tests, and security tooling.
 
@@ -13,7 +13,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3001](http://localhost:3001) → **Sign in** → pick a demo role → land on that role’s dashboard.
+Open [http://localhost:3001](http://localhost:3001) for the public site, or [http://localhost:3001/login](http://localhost:3001/login) → **Sign in** (demo: any email/password) → admin dashboard.
 
 ```bash
 npm run build && npm start   # production build
@@ -28,7 +28,7 @@ npm run lint
 
 | Goal | How it’s handled |
 |------|------------------|
-| Multi-role product | Route groups `(admin)` / `(freelancer)` / `(client)` + shared shells |
+| Public site + admin portal | Route groups `(public)` / `(auth)` / `(admin)` + shared shells |
 | Secure SPA-style auth | Access token in **memory** (Zustand); `app_role` cookie only for edge route guards |
 | Talk to a REST API | Axios `apiClient` with Bearer + 401 refresh queue (refresh stubbed) |
 | Realtime | Socket.IO singleton under `lib/socket` |
@@ -47,7 +47,8 @@ Backend is separate — this repo is the frontend base.
 | `src/app/` | Routes only (layouts, pages, loading/error) |
 | `src/modules/` | Feature islands + public barrels (`modules/auth`, …) |
 | `src/components/ui/` | Shared UI (one folder per component + `index.ts`) |
-| `src/components/layout/` | `PublicShell`, `AppShell` |
+| `src/components/layout/` | `PublicShell`, `AppShell` (admin sidebar + top bar) |
+| `src/components/admin/` | Shared admin building blocks (`AdminPageHeader`, `StatusBadge`, …) |
 | `src/lib/` | API, socket, auth helpers, pure utils |
 | `src/store/` | Zustand (auth session) |
 | `src/config/` | `env`, `roles`, `nav`, typed site configuration |
@@ -101,7 +102,7 @@ Do **not** use `process.env` in feature code. Never commit real `.env*` files �
 | File | Purpose |
 |------|---------|
 | `src/config/roles.ts` | Role list, home routes, path prefixes |
-| `src/config/nav.ts` | Sidebar + public nav |
+| `src/config/nav.ts` | Grouped admin sidebar (label + href + Lucide icon) + public nav |
 
 ```ts
 import { getHomeRouteForRole } from "@/config/roles";
@@ -132,7 +133,7 @@ Helpers: `src/lib/auth/session.ts`, `src/lib/auth/session-cookie.ts`
 
 **Proxy (`src/proxy.ts`):**
 
-- `/admin/*`, `/freelancer/*`, `/client/*` need matching `app_role`
+- `/admin/*` needs `app_role=admin`
 - No cookie → `/login?next=…`
 - Wrong role → that role’s home
 - Logged-in user on `/login` → role home
@@ -140,7 +141,7 @@ Helpers: `src/lib/auth/session.ts`, `src/lib/auth/session-cookie.ts`
 **Auth module pattern:**
 
 ```ts
-import { LoginForm, SignupForm, loginRequest } from "@/modules/auth";
+import { LoginForm, loginRequest } from "@/modules/auth";
 ```
 
 - **Pages** (`app/(auth)/…`): thin server components — title, footer links, `Suspense` + form
@@ -149,7 +150,7 @@ import { LoginForm, SignupForm, loginRequest } from "@/modules/auth";
 - **API** (`modules/auth/services/…`): mock login today → swap to `apiClient`
 - **Public API:** `modules/auth/index.ts` only
 
-Screens: login, signup, forgot-password, reset-password (OTP) — same shell pattern.
+Screens: login, forgot-password, reset-password (OTP) — same shell pattern. There is no public signup: admin accounts are created by the team (later in Supabase).
 
 ---
 
@@ -272,6 +273,8 @@ components/ui/Button/
 | `Select` / `Combobox` | Select vs searchable combobox |
 | `InputGroup` / `InputOtp` | Grouped inputs + **`InputOTPField`** (`length`, `charset`) |
 | `Checkbox` / `Switch` / `Separator` | Form / layout primitives |
+| `Badge` | Labels + soft status tones (`success` \| `warning` \| `info` \| `neutral`) |
+| `Card` / `Tabs` / `DropdownMenu` | Surfaces, tabbed panels, action menus |
 | `Tooltip` | `SimpleTooltip` + `side` (`top` default) |
 | `Spinner` / `Skeleton` | Loaders; `Loader` variants: `spinner` \| `skeleton` \| `dots` |
 | `Table` | Primitives + production **`DataTable`** (sort, widths, sticky, responsive hide, loading) |
@@ -290,7 +293,7 @@ components/ui/Button/
 Shells:
 
 - Public: `components/layout/public-shell.tsx`
-- Authenticated roles: `components/layout/app-shell.tsx` (Sidebar + header bar)
+- Admin: `components/layout/AppShell/` (grouped sidebar, sheet on mobile, top bar with demo-data notice)
 - Providers: `providers/app-providers.tsx`
 
 ### Adding a shadcn component
@@ -301,7 +304,7 @@ CLI writes flat `ui/<name>.tsx`. Our layout is nested folders:
 2. Move into `src/components/ui/ComponentName/`
 3. Split styles to `variants.ts` if useful
 4. Add `index.ts` barrel
-5. Fix imports to `@/components/ui/Other` barrels
+5. Fix imports to `@/components/ui/Other` barrels, and make sure `cn` comes from `@/lib/utils` (the CLI may write `from "cn"` and add a stray `cn` package — remove it)
 
 Optional: `npx shadcn add drawer -y -p src/components/ui/Drawer` then still add `index.ts`.
 

@@ -8,12 +8,7 @@ import {
 } from "@/config/roles";
 import { ROLE_COOKIE } from "@/lib/auth/session-cookie";
 
-const AUTH_PATHS = [
-  "/login",
-  "/signup",
-  "/forgot-password",
-  "/reset-password",
-];
+const AUTH_PATHS = ["/login", "/forgot-password", "/reset-password"];
 
 function isAuthPath(pathname: string): boolean {
   return AUTH_PATHS.some(
@@ -40,7 +35,7 @@ export function proxy(request: NextRequest) {
   const roleCookie = request.cookies.get(ROLE_COOKIE)?.value;
   const role = isUserRole(roleCookie) ? roleCookie : null;
 
-  // Logged-in users shouldn't sit on login/signup
+  // Logged-in users shouldn't sit on the sign-in screens
   if (role && isAuthPath(pathname)) {
     const url = request.nextUrl.clone();
     url.pathname = getHomeRouteForRole(role);

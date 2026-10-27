@@ -18,5 +18,4 @@ export type {
   DataTableSort,
   SortDirection,
   ColumnAlign,
-  ColumnBreakpoint,
 } from "./data-table";

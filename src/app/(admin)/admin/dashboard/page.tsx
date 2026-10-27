@@ -1,14 +1,35 @@
 import type { Metadata } from "next";
+import { siteConfig } from "@/config/site";
+import { AdminPageHeader } from "@/components/admin";
+import {
+  DashboardStats,
+  getDashboardOverview,
+  LeadPipeline,
+  OpenPositions,
+  RecentQuoteRequests,
+} from "@/modules/dashboard";
 
-export const metadata: Metadata = { title: "Admin dashboard" };
+export const metadata: Metadata = { title: "Dashboard" };
 
-export default function AdminDashboardPage() {
+export default async function AdminDashboardPage() {
+  const overview = await getDashboardOverview();
+
   return (
     <>
-      <h1 className="text-2xl font-semibold tracking-tight">Admin dashboard</h1>
-      <p className="mt-2 text-muted-foreground">
-        Protected admin area. Replace this with real widgets.
-      </p>
+      <AdminPageHeader
+        title="Dashboard"
+        description={`Leads, hiring, and content activity for ${siteConfig.name}.`}
+      />
+
+      <DashboardStats overview={overview} />
+
+      <div className="grid items-start gap-6 lg:grid-cols-3">
+        <RecentQuoteRequests requests={overview.leads.recent} />
+        <div className="grid gap-6">
+          <LeadPipeline stages={overview.leads.pipeline} total={overview.leads.total} />
+          <OpenPositions jobs={overview.careers.openJobs} />
+        </div>
+      </div>
     </>
   );
 }

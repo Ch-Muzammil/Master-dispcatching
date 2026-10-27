@@ -55,7 +55,7 @@ export function LoginForm() {
       });
       connectSocket();
 
-      toast.success(`Signed in as ${user.role}`);
+      toast.success(`Welcome back, ${user.name}`);
 
       const next = searchParams.get("next");
       router.replace(next || getHomeRouteForRole(user.role));
