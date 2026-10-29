@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
-import { SectionPlaceholder } from "@/components/admin";
+import { AccountView, getAccountOverview } from "@/modules/account";
 
 export const metadata: Metadata = { title: "Account" };
 
-export default function AccountPage() {
-  return (
-    <SectionPlaceholder
-      title="Account"
-      description="Update your profile and change your password."
-    />
-  );
+export default async function AccountPage() {
+  const { profile, sessions } = await getAccountOverview();
+  return <AccountView profile={profile} sessions={sessions} />;
 }

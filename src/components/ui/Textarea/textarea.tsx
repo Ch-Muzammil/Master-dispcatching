@@ -10,6 +10,8 @@ export type TextareaProps = React.ComponentProps<"textarea"> & {
   label?: React.ReactNode;
   /** Optional error message below the textarea */
   error?: React.ReactNode;
+  /** Helper text under the textarea */
+  hint?: React.ReactNode;
   fieldClassName?: string;
 };
 
@@ -24,6 +26,7 @@ function Textarea({
   className,
   label,
   error,
+  hint,
   fieldClassName,
   id,
   "aria-invalid": ariaInvalid,
@@ -34,14 +37,22 @@ function Textarea({
   const fieldId = id ?? (label != null && label !== "" ? autoId : undefined);
   const errorId =
     error != null && error !== "" && fieldId ? `${fieldId}-error` : undefined;
+  const hintId =
+    hint != null && hint !== "" && fieldId ? `${fieldId}-hint` : undefined;
 
   return (
-    <Field id={fieldId} label={label} error={error} className={fieldClassName}>
+    <Field
+      id={fieldId}
+      label={label}
+      error={error}
+      hint={hint}
+      className={fieldClassName}
+    >
       <textarea
         id={fieldId}
         data-slot="textarea"
         aria-invalid={ariaInvalid ?? Boolean(error)}
-        aria-describedby={cn(ariaDescribedBy, errorId) || undefined}
+        aria-describedby={cn(ariaDescribedBy, errorId, hintId) || undefined}
         className={cn(textareaVariants(), className)}
         {...props}
       />

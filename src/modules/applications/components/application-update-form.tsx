@@ -41,6 +41,7 @@ export function ApplicationUpdateForm({
     control,
     register,
     handleSubmit,
+    reset,
     formState: { errors, isDirty, isSubmitting },
   } = useForm<ApplicationUpdateValues>({
     resolver: zodResolver(applicationUpdateSchema),
@@ -49,8 +50,9 @@ export function ApplicationUpdateForm({
 
   const noteLength = useWatch({ control, name: "note" })?.length ?? 0;
 
-  function onSubmit() {
+  function onSubmit(values: ApplicationUpdateValues) {
     notifyDemoMode("This update");
+    reset({ ...values, note: "" });
   }
 
   return (

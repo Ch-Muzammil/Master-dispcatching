@@ -19,9 +19,6 @@ const columns: DataTableColumn<AdminJob>[] = [
     id: "role",
     header: "Role",
     width: 240,
-    sticky: true,
-    className: "bg-card",
-    headerClassName: "bg-card",
     cell: (job) => (
       <div className="min-w-0">
         <Link

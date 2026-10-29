@@ -23,7 +23,7 @@ export function DashboardPanel({
   return (
     <section
       aria-labelledby={headingId}
-      className={cn("flex flex-col rounded-xl border bg-card shadow-xs", className)}
+      className={cn("flex h-full flex-col rounded-xl border bg-card shadow-xs", className)}
     >
       <header className="flex items-start justify-between gap-4 border-b px-5 py-4">
         <div className="min-w-0">

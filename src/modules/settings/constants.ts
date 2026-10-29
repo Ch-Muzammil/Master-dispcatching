@@ -1,0 +1,40 @@
+import type { SocialIconKey } from "./types";
+
+export const SETTINGS_LIMITS = {
+  name: 80,
+  shortName: 24,
+  legalName: 80,
+  wordmark: 24,
+  subline: 40,
+  tagline: 120,
+  description: 220,
+  serviceArea: 60,
+  statValue: 12,
+  statLabel: 40,
+  phone: 32,
+  email: 80,
+  address: 120,
+  hoursLabel: 40,
+  hoursValue: 60,
+  socialLabel: 24,
+  navLabel: 40,
+  navHref: 80,
+  seoTitle: 70,
+  seoDescription: 160,
+  footerNote: 160,
+  minStats: 3,
+  maxStats: 6,
+  minHours: 1,
+  maxHours: 6,
+  minSocials: 0,
+  maxSocials: 6,
+  minNav: 3,
+  maxNav: 10,
+} as const;
+
+export const SOCIAL_ICON_OPTIONS: { value: SocialIconKey; label: string }[] = [
+  { value: "linkedin", label: "LinkedIn" },
+  { value: "facebook", label: "Facebook" },
+  { value: "instagram", label: "Instagram" },
+  { value: "x", label: "X" },
+];

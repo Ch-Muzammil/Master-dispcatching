@@ -77,6 +77,7 @@ export function LoginForm() {
         type="email"
         label="Email"
         icon={<MailIcon />}
+        placeholder="you@company.com"
         autoComplete="email"
         error={errors.email?.message}
         {...register("email")}
@@ -88,6 +89,7 @@ export function LoginForm() {
           type="password"
           label="Password"
           icon={<LockIcon />}
+          placeholder="Enter your password"
           autoComplete="current-password"
           error={errors.password?.message}
           {...register("password")}

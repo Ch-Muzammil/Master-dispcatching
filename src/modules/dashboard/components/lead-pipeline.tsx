@@ -11,7 +11,11 @@ type LeadPipelineProps = {
 /** Stacked bar + legend. Every segment is also listed with its label and count. */
 export function LeadPipeline({ stages, total }: LeadPipelineProps) {
   return (
-    <DashboardPanel title="Lead pipeline" description={`${total} quote requests by status`}>
+    <DashboardPanel
+      title="Lead pipeline"
+      description={`${total} quote requests by status`}
+      className="flex-1"
+    >
       <div
         className="flex h-2.5 overflow-hidden rounded-full bg-muted"
         role="img"

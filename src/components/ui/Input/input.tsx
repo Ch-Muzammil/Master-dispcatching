@@ -24,7 +24,9 @@ export interface InputProps
   label?: React.ReactNode;
   /** Optional error message below the input */
   error?: React.ReactNode;
-  /** Class on the outer field wrapper (when label/error is used) */
+  /** Helper or live preview under the input */
+  hint?: React.ReactNode;
+  /** Class on the outer field wrapper (when label/error/hint is used) */
   fieldClassName?: string;
 }
 
@@ -44,6 +46,7 @@ function Input({
   disabled,
   label,
   error,
+  hint,
   fieldClassName,
   id,
   "aria-invalid": ariaInvalid,
@@ -54,6 +57,8 @@ function Input({
   const fieldId = id ?? (label != null && label !== "" ? autoId : undefined);
   const errorId =
     error != null && error !== "" && fieldId ? `${fieldId}-error` : undefined;
+  const hintId =
+    hint != null && hint !== "" && fieldId ? `${fieldId}-hint` : undefined;
   const [visible, setVisible] = React.useState(false);
   const isPassword = type === "password";
   const showToggle = isPassword && showPasswordToggle;
@@ -67,7 +72,7 @@ function Input({
       disabled={disabled}
       data-slot="input"
       aria-invalid={ariaInvalid ?? Boolean(error)}
-      aria-describedby={cn(ariaDescribedBy, errorId) || undefined}
+      aria-describedby={cn(ariaDescribedBy, errorId, hintId) || undefined}
       className={cn(
         inputVariants({ size }),
         icon && "pl-9",
@@ -121,7 +126,13 @@ function Input({
   );
 
   return (
-    <Field id={fieldId} label={label} error={error} className={fieldClassName}>
+    <Field
+      id={fieldId}
+      label={label}
+      error={error}
+      hint={hint}
+      className={fieldClassName}
+    >
       {control}
     </Field>
   );

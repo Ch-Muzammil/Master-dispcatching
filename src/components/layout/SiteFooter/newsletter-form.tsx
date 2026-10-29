@@ -11,8 +11,8 @@ export function NewsletterForm() {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setEmail("");
-    toast.success("You're on the list", {
-      description: "Monthly freight insights, no spam.",
+    toast.info("Demo mode — this signup wasn't saved", {
+      description: "The list will save once the database is connected.",
     });
   }
 

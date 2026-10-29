@@ -41,12 +41,12 @@ If a request conflicts with this rule, the README, or existing patterns: **stop 
 - **Page** (`app/(auth)/…/page.tsx`): server component — `metadata`, title/footer links, **`Suspense`** + form from `@/modules/auth`.
 - **Form** (`modules/auth/components/*-form.tsx`): client — React Hook Form + Zod.
 - **Schema** (`modules/auth/schemas/*-schema.ts`): Zod only; export types + factories when length/options vary.
-- Do not put full form logic inline on the page. Keep login / signup / forgot / reset consistent.
+- Do not put full form logic inline on the page. Keep login / forgot / reset consistent.
 
 ## Forms & validation
 
 - Prefer **React Hook Form + Zod** (`zodResolver`) for real forms; local `useState` only for tiny one-off controls.
-- Reuse shared password policy: `lib/password-validation` + **`PasswordField`** for *setting* a password (signup/reset). Login keeps plain `<Input type="password" />`.
+- Reuse shared password policy: `lib/password-validation` + **`PasswordField`** for *setting* a password (reset / change). Login keeps plain `<Input type="password" />`.
 - Form controls should accept optional **`label`** / **`error`** props (via `Field`) — do not re-wrap Label + error markup on every page.
 - OTP: use **`InputOTPField`** with `length` (`4` \| `6`) and `charset` (`numeric` \| `alpha` \| `mixed`).
 

@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { SectionPlaceholder } from "@/components/admin";
+import { AdminPageHeader } from "@/components/admin";
+import { listAdminPages, PagesListView } from "@/modules/pages";
 
 export const metadata: Metadata = { title: "Pages" };
 
-export default function PagesPage() {
+export default async function PagesPage() {
+  const pages = await listAdminPages();
+
   return (
-    <SectionPlaceholder
-      title="Pages"
-      description="Edit the content of your Home and About pages, testimonials, and legal pages."
-    />
+    <>
+      <AdminPageHeader
+        title="Pages"
+        description="The public pages that make up the website. Edit copy here; services, jobs, blog, and FAQs have their own sections."
+      />
+      <PagesListView pages={pages} />
+    </>
   );
 }

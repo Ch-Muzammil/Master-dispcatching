@@ -45,6 +45,7 @@ export function JobForm({ job, takenSlugs }: JobFormProps) {
     control,
     register,
     handleSubmit,
+    reset,
     setValue,
     formState: { errors, isDirty, isSubmitting, isSubmitted },
   } = useForm<JobFormValues>({
@@ -56,8 +57,9 @@ export function JobForm({ job, takenSlugs }: JobFormProps) {
 
   const [slug, overview] = useWatch({ control, name: ["slug", "overview"] });
 
-  function onSubmit() {
+  function onSubmit(values: JobFormValues) {
     notifyDemoMode(isNew ? "This new listing" : "These changes");
+    reset(values);
   }
 
   const titleField = register("title", {
@@ -87,21 +89,21 @@ export function JobForm({ job, takenSlugs }: JobFormProps) {
               error={errors.title?.message}
               {...titleField}
             />
-            <div className="space-y-1.5">
-              <Input
-                id="job-slug"
-                label="URL slug"
-                placeholder="dispatch-manager"
-                maxLength={80}
-                autoCapitalize="off"
-                spellCheck={false}
-                error={errors.slug?.message}
-                {...slugField}
-              />
-              <p className="truncate text-xs text-muted-foreground">
-                /careers/<span className="font-medium text-foreground">{slug || "…"}</span>
-              </p>
-            </div>
+            <Input
+              id="job-slug"
+              label="URL slug"
+              placeholder="dispatch-manager"
+              maxLength={80}
+              autoCapitalize="off"
+              spellCheck={false}
+              error={errors.slug?.message}
+              hint={
+                <>
+                  /careers/<span className="font-medium text-foreground">{slug || "…"}</span>
+                </>
+              }
+              {...slugField}
+            />
             <div className="grid gap-5 sm:grid-cols-2">
               <Controller
                 name="department"

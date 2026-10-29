@@ -16,7 +16,7 @@ export function RecentQuoteRequests({ requests }: { requests: QuoteRequest[] }) 
       title="Recent quote requests"
       description="The latest leads from your website"
       action={{ href: "/admin/quote-requests", label: "View all" }}
-      className="lg:col-span-2"
+      className="h-full lg:col-span-2"
     >
       {requests.length === 0 ? (
         <EmptyState

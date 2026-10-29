@@ -23,9 +23,9 @@ export default async function AdminDashboardPage() {
 
       <DashboardStats overview={overview} />
 
-      <div className="grid items-start gap-6 lg:grid-cols-3">
+      <div className="grid gap-6 lg:grid-cols-3 lg:items-stretch">
         <RecentQuoteRequests requests={overview.leads.recent} />
-        <div className="grid gap-6">
+        <div className="flex flex-col gap-6">
           <LeadPipeline stages={overview.leads.pipeline} total={overview.leads.total} />
           <OpenPositions jobs={overview.careers.openJobs} />
         </div>

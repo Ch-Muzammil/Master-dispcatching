@@ -22,9 +22,6 @@ const columns: DataTableColumn<AdminPost>[] = [
     id: "article",
     header: "Article",
     width: 360,
-    sticky: true,
-    className: "bg-card",
-    headerClassName: "bg-card",
     cell: (post) => (
       <div className="flex min-w-0 items-center gap-3">
         <div className="relative size-11 shrink-0 overflow-hidden rounded-lg border bg-muted">

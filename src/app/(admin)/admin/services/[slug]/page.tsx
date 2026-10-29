@@ -31,7 +31,7 @@ export default async function EditServicePage({ params }: EditServicePageProps) 
     <>
       <AdminPageHeader
         title={service.title}
-        description="Changes go live on the website when you save a published service."
+        description="Preview this service. Saves stay in demo mode until the database is connected."
         back={{ href: "/admin/services", label: "Services" }}
         actions={<StatusBadge label={status.label} tone={status.tone} />}
       />

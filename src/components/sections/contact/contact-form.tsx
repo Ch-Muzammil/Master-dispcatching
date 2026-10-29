@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/Select";
 import { Textarea } from "@/components/ui/Textarea";
+import { siteConfig } from "@/config/site";
 import { equipmentOptions, fleetSizeOptions } from "@/data/contact";
 
 type FormValues = {
@@ -58,13 +59,13 @@ export function ContactForm() {
       <div className="rounded-2xl border bg-card p-8 shadow-sm sm:p-10">
         <CheckCircle2 className="size-10 text-primary" aria-hidden />
         <h2 className="mt-5 font-display text-2xl font-bold tracking-tight text-foreground">
-          Thanks — your message is ready for our team.
+          Thanks — this is a demo form.
         </h2>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          A dispatcher will review your equipment and lane details and follow up within one business hour during office hours.
+          Your message was not sent. When the database is connected, inquiries will reach dispatch.
         </p>
         <a
-          href="tel:4695550199"
+          href={`tel:${siteConfig.contact.dispatchLine.replace(/\D/g, "")}`}
           className="mt-6 inline-flex text-sm font-bold text-primary hover:underline"
         >
           Need an immediate answer? Call the dispatch line.

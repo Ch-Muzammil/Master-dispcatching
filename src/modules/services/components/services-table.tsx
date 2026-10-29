@@ -21,9 +21,6 @@ const columns: DataTableColumn<AdminService>[] = [
     id: "service",
     header: "Service",
     width: 320,
-    sticky: true,
-    className: "bg-card",
-    headerClassName: "bg-card",
     cell: (service) => (
       <div className="flex min-w-0 items-center gap-3">
         <ServiceIconTile iconKey={service.iconKey} size="sm" />

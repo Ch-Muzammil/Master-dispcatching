@@ -27,7 +27,7 @@ export default async function EditPostPage({ params }: EditPostPageProps) {
     <>
       <AdminPageHeader
         title={post.title}
-        description="Changes go live on the blog when you save a published article."
+        description="Preview this article. Saves stay in demo mode until the database is connected."
         back={{ href: "/admin/blog", label: "Blog" }}
         actions={<StatusBadge label={status.label} tone={status.tone} />}
       />

@@ -9,6 +9,7 @@ export function OpenPositions({ jobs }: { jobs: Job[] }) {
       title="Open positions"
       description="Applicants per open role"
       action={{ href: "/admin/careers", label: "Manage" }}
+      className="flex-1"
     >
       {jobs.length === 0 ? (
         <EmptyState

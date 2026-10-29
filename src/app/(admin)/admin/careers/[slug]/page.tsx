@@ -27,7 +27,7 @@ export default async function EditJobPage({ params }: EditJobPageProps) {
     <>
       <AdminPageHeader
         title={job.title}
-        description="Changes go live on the careers page when you save an open listing."
+        description="Preview this listing. Saves stay in demo mode until the database is connected."
         back={{ href: "/admin/careers", label: "Careers" }}
         actions={<StatusBadge label={status.label} tone={status.tone} />}
       />

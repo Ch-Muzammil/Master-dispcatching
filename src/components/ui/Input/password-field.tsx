@@ -10,7 +10,10 @@ import {
 } from "@/lib/password-validation";
 import { Input, type InputProps } from "./input";
 
-export type PasswordFieldProps = Omit<InputProps, "type" | "icon" | "label" | "error" | "fieldClassName"> & {
+export type PasswordFieldProps = Omit<
+  InputProps,
+  "type" | "icon" | "label" | "error" | "fieldClassName" | "hint"
+> & {
   /** Leading icon — defaults to Lock */
   icon?: React.ReactNode;
   /** Override shared password policy for this field only */
@@ -28,6 +31,8 @@ export type PasswordFieldProps = Omit<InputProps, "type" | "icon" | "label" | "e
   label?: React.ReactNode;
   /** Optional error message below the field */
   error?: React.ReactNode;
+  /** Helper text under the field */
+  hint?: React.ReactNode;
   fieldClassName?: string;
 };
 
@@ -50,6 +55,7 @@ function PasswordField({
   onChange,
   label,
   error,
+  hint,
   fieldClassName,
   id,
   "aria-invalid": ariaInvalid,
@@ -60,6 +66,8 @@ function PasswordField({
   const fieldId = id ?? (label != null && label !== "" ? autoId : undefined);
   const errorId =
     error != null && error !== "" && fieldId ? `${fieldId}-error` : undefined;
+  const hintId =
+    hint != null && hint !== "" && fieldId ? `${fieldId}-hint` : undefined;
   const [focused, setFocused] = React.useState(false);
   const [uncontrolled, setUncontrolled] = React.useState(
     String(defaultValue ?? ""),
@@ -77,10 +85,17 @@ function PasswordField({
     ariaDescribedBy,
     showChecklist ? rulesId : undefined,
     errorId,
+    hintId,
   );
 
   return (
-    <Field id={fieldId} label={label} error={error} className={fieldClassName}>
+    <Field
+      id={fieldId}
+      label={label}
+      error={error}
+      hint={hint}
+      className={fieldClassName}
+    >
       <div data-slot="password-field" className="relative w-full min-w-0">
         <Input
           id={fieldId}

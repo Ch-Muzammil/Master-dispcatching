@@ -24,8 +24,8 @@ export function SuccessPageContent({ jobTitle }: SuccessPageContentProps) {
         </h1>
         <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
           {isApplication
-            ? `Thanks for applying for the ${jobTitle} role. Our hiring team will review your application and follow up if there is a fit.`
-            : "Your message is with our team. We will review it and get back to you as soon as possible."}
+            ? `Thanks for applying for the ${jobTitle} role. This is a demo — the application wasn't stored. When the database is connected, hiring will receive it here.`
+            : "This is a demo — the message wasn't stored. When the database is connected, dispatch will receive it here."}
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link

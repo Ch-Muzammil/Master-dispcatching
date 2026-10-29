@@ -20,9 +20,6 @@ export function ApplicationsTable({ applications, onOpen, emptyState }: Applicat
       id: "candidate",
       header: "Candidate",
       width: 240,
-      sticky: true,
-      className: "bg-card",
-      headerClassName: "bg-card",
       cell: (application) => (
         <div className="flex min-w-0 items-center gap-3">
           <UserAvatar name={application.name} />

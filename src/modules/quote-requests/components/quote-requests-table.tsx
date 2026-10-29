@@ -20,9 +20,6 @@ export function QuoteRequestsTable({ requests, onOpen, emptyState }: QuoteReques
       id: "lead",
       header: "Lead",
       width: 240,
-      sticky: true,
-      className: "bg-card",
-      headerClassName: "bg-card",
       cell: (request) => (
         <div className="flex min-w-0 items-center gap-3">
           <UserAvatar name={request.name} />

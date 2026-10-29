@@ -4,7 +4,10 @@ import { SectionHeading } from "../shared";
 
 export function TestimonialsSection() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
+    <section
+      id="testimonials"
+      className="mx-auto max-w-7xl scroll-mt-24 px-4 py-16 sm:px-6 lg:py-20"
+    >
       <SectionHeading
         align="center"
         eyebrow="From the road"

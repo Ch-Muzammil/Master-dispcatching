@@ -1,5 +1,6 @@
 import { CtaSection } from "../home/cta-section";
 import { Reveal } from "@/components/motion/reveal";
+import { siteConfig } from "@/config/site";
 import { faqGroups } from "@/data/faqs";
 import { FaqAccordion } from "./faq-accordion";
 import { FaqsHero } from "./faqs-hero";
@@ -24,7 +25,7 @@ export function FaqsPageContent() {
                 Still deciding? Tell us about your equipment and lanes. We will give you a clear answer, even if we are not the right fit.
               </p>
               <a
-                href="tel:4695550199"
+                href={`tel:${siteConfig.contact.dispatchLine.replace(/\D/g, "")}`}
                 className="mt-6 inline-flex text-sm font-bold text-primary hover:underline"
               >
                 Call the dispatch desk

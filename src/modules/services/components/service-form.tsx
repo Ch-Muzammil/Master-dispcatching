@@ -61,6 +61,7 @@ export function ServiceForm({ service, takenSlugs }: ServiceFormProps) {
     control,
     register,
     handleSubmit,
+    reset,
     setValue,
     formState: { errors, isDirty, isSubmitting, isSubmitted },
   } = useForm<ServiceFormValues>({
@@ -75,8 +76,9 @@ export function ServiceForm({ service, takenSlugs }: ServiceFormProps) {
     name: ["slug", "excerpt", "description", "image"],
   });
 
-  function onSubmit() {
+  function onSubmit(values: ServiceFormValues) {
     notifyDemoMode(isNew ? "This new service" : "These changes");
+    reset(values);
   }
 
   const titleField = register("title", {
@@ -106,33 +108,31 @@ export function ServiceForm({ service, takenSlugs }: ServiceFormProps) {
               error={errors.title?.message}
               {...titleField}
             />
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="space-y-1.5">
-                <Input
-                  id="service-short-title"
-                  label="Short title"
-                  placeholder="e.g. Dry Van"
-                  maxLength={L.shortTitle}
-                  error={errors.shortTitle?.message}
-                  {...register("shortTitle")}
-                />
-                <p className="text-xs text-muted-foreground">Used in menus and tight spaces.</p>
-              </div>
-              <div className="space-y-1.5">
-                <Input
-                  id="service-slug"
-                  label="URL slug"
-                  placeholder="dry-van-dispatching"
-                  maxLength={80}
-                  autoCapitalize="off"
-                  spellCheck={false}
-                  error={errors.slug?.message}
-                  {...slugField}
-                />
-                <p className="truncate text-xs text-muted-foreground">
-                  /services/<span className="font-medium text-foreground">{slug || "…"}</span>
-                </p>
-              </div>
+            <div className="grid items-start gap-5 sm:grid-cols-2">
+              <Input
+                id="service-short-title"
+                label="Short title"
+                placeholder="e.g. Dry Van"
+                maxLength={L.shortTitle}
+                error={errors.shortTitle?.message}
+                hint="Used in menus and tight spaces."
+                {...register("shortTitle")}
+              />
+              <Input
+                id="service-slug"
+                label="URL slug"
+                placeholder="dry-van-dispatching"
+                maxLength={80}
+                autoCapitalize="off"
+                spellCheck={false}
+                error={errors.slug?.message}
+                hint={
+                  <>
+                    /services/<span className="font-medium text-foreground">{slug || "…"}</span>
+                  </>
+                }
+                {...slugField}
+              />
             </div>
           </AdminFormSection>
 

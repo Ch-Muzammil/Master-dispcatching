@@ -60,6 +60,7 @@ export function PostForm({ post, takenSlugs }: PostFormProps) {
     register,
     handleSubmit,
     getValues,
+    reset,
     setValue,
     formState: { errors, isDirty, isSubmitting, isSubmitted },
   } = useForm<PostFormValues>({
@@ -74,8 +75,9 @@ export function PostForm({ post, takenSlugs }: PostFormProps) {
     name: ["slug", "excerpt", "cover", "body"],
   });
 
-  function onSubmit() {
+  function onSubmit(values: PostFormValues) {
     notifyDemoMode(isNew ? "This new article" : "These changes");
+    reset(values);
   }
 
   const titleField = register("title", {
@@ -105,27 +107,32 @@ export function PostForm({ post, takenSlugs }: PostFormProps) {
               error={errors.title?.message}
               {...titleField}
             />
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="space-y-1.5">
-                <Input
-                  id="post-slug"
-                  label="URL slug"
-                  placeholder="evaluate-dispatch-service"
-                  maxLength={80}
-                  autoCapitalize="off"
-                  spellCheck={false}
-                  error={errors.slug?.message}
-                  {...slugField}
-                />
-                <p className="truncate text-xs text-muted-foreground">
-                  /blog/<span className="font-medium text-foreground">{slug || "…"}</span>
-                </p>
-              </div>
+            <div className="grid items-start gap-5 sm:grid-cols-2">
+              <Input
+                id="post-slug"
+                label="URL slug"
+                placeholder="evaluate-dispatch-service"
+                maxLength={80}
+                autoCapitalize="off"
+                spellCheck={false}
+                error={errors.slug?.message}
+                hint={
+                  <>
+                    /blog/<span className="font-medium text-foreground">{slug || "…"}</span>
+                  </>
+                }
+                {...slugField}
+              />
               <Controller
                 name="category"
                 control={control}
                 render={({ field }) => (
-                  <Field id="post-category" label="Category" error={errors.category?.message}>
+                  <Field
+                    id="post-category"
+                    label="Category"
+                    error={errors.category?.message}
+                    hint="Groups the article on the blog list."
+                  >
                     <Select
                       items={CATEGORY_ITEMS}
                       value={field.value}

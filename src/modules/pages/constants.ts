@@ -1,0 +1,47 @@
+import type { StatusTone } from "@/components/admin";
+import type { PageStatus } from "./types";
+
+export const PAGE_STATUS_META: Record<PageStatus, { label: string; tone: StatusTone }> = {
+  published: { label: "Published", tone: "success" },
+  draft: { label: "Draft", tone: "neutral" },
+};
+
+export const PAGE_LIMITS = {
+  headline: 90,
+  highlight: 40,
+  body: 700,
+  ctaTitle: 90,
+  ctaBody: 400,
+  seoTitle: 70,
+  seoDescription: 160,
+  storyTitle: 80,
+  storyParagraph: 600,
+  valueTitle: 50,
+  valueBody: 280,
+  teamName: 50,
+  teamRole: 80,
+  teamBio: 160,
+  initials: 4,
+  year: 4,
+  milestone: 160,
+  quote: 420,
+  personName: 50,
+  personRole: 80,
+  legalTitle: 90,
+  legalDescription: 400,
+  legalUpdated: 40,
+  sectionTitle: 80,
+  sectionBody: 1200,
+  minStory: 1,
+  maxStory: 6,
+  minValues: 2,
+  maxValues: 6,
+  minTeam: 2,
+  maxTeam: 8,
+  minMilestones: 2,
+  maxMilestones: 8,
+  minTestimonials: 2,
+  maxTestimonials: 8,
+  minLegalSections: 3,
+  maxLegalSections: 12,
+} as const;

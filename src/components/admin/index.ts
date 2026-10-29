@@ -4,6 +4,7 @@ export { CharacterCount } from "./character-count";
 export { DemoDataNotice } from "./demo-data-notice";
 export { notifyDemoMode } from "./notify-demo-mode";
 export { SectionPlaceholder } from "./section-placeholder";
+export { SettingToggle } from "./setting-toggle";
 export { StatCard } from "./stat-card";
 export {
   STATUS_TONE_FILL,
