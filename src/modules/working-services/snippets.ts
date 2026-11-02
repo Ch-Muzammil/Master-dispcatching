@@ -343,5 +343,36 @@ export const deletePost = async (id) => {
       },
     ],
   },
+  {
+    id: "optimistic-create",
+    title: "Optimistic create",
+    blocks: [
+      {
+        id: "optimistic-create-success",
+        code: `        onSuccess: (newPost) => {
+            queryClient.setQueryData(["posts"], (oldPosts) => [
+                newPost,
+                ...(oldPosts ?? []),
+            ]);
+            reset();
+        },`,
+      },
+    ],
+  },
+  {
+    id: "optimistic-delete",
+    title: "Optimistic delete",
+    blocks: [
+      {
+        id: "optimistic-delete-success",
+        code: `        onSuccess: (_, deletedId) => {
+            queryClient.setQueryData(["posts"], (oldPosts) =>
+                oldPosts?.filter((post) => post.id !== deletedId)
+            );
+            setPostToDelete(null);
+        },`,
+      },
+    ],
+  },
   ...PAGE_SNIPPETS,
 ];
