@@ -13,7 +13,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3001](http://localhost:3001) for the public site, or [http://localhost:3001/login](http://localhost:3001/login) → **Sign in** (demo: any email/password) → admin dashboard.
+Open [http://localhost:3001](http://localhost:3001) for the public site, or [http://localhost:3001/login](http://localhost:3001/login) → **Sign in** (demo admin email and password are prefilled) → admin dashboard.
 
 ```bash
 npm run build && npm start   # production build

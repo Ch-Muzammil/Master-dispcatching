@@ -11,7 +11,7 @@ export default function LoginPage() {
       <div>
         <h1 className="font-display text-2xl font-bold tracking-tight">Sign in</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Demo sign-in: any email and password work until real authentication is connected.
+          Demo sign-in: use the admin email and password until real authentication is connected.
         </p>
       </div>
 

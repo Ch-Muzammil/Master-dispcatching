@@ -5,6 +5,9 @@ export type LoginPayload = {
   password: string;
 };
 
+/** Demo admin password until real authentication is connected. */
+export const DEMO_ADMIN_PASSWORD = "Mzml123@@";
+
 export type LoginResponse = {
   accessToken: string;
   user: {
@@ -33,6 +36,10 @@ export async function loginRequest(
 
   if (!payload.email || !payload.password) {
     throw new Error("Email and password are required");
+  }
+
+  if (payload.password !== DEMO_ADMIN_PASSWORD) {
+    throw new Error("Invalid email or password");
   }
 
   return {

@@ -11,7 +11,7 @@ test.describe("auth routes", () => {
   test("demo login reaches admin dashboard", async ({ page }) => {
     await page.goto("/login");
     await page.getByLabel("Email").fill("demo@example.com");
-    await page.getByLabel("Password").fill("password");
+    await page.getByLabel("Password").fill("Mzml123@@");
     await page.getByRole("button", { name: "Sign in" }).click();
     await expect(page).toHaveURL(/\/admin\/dashboard/);
     await expect(page.getByRole("heading", { name: "Dashboard" })).toBeVisible();

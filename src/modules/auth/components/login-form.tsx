@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/Input";
 import { useAuthStore, type AuthUser } from "@/store/auth-store";
 import { getHomeRouteForRole } from "@/config/roles";
 import { connectSocket } from "@/lib/socket/socket-instance";
-import { loginRequest } from "../services/auth-service";
+import { DEMO_ADMIN_PASSWORD, loginRequest } from "../services/auth-service";
 import {
   loginSchema,
   type LoginFormValues,
@@ -34,7 +34,7 @@ export function LoginForm() {
     mode: "onChange",
     defaultValues: {
       email: "demo@example.com",
-      password: "password",
+      password: DEMO_ADMIN_PASSWORD,
     },
   });
 
