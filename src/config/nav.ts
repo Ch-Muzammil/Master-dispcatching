@@ -2,7 +2,6 @@ import {
   BookOpen,
   Briefcase,
   CircleHelp,
-  Code2,
   FileText,
   Inbox,
   LayoutDashboard,
@@ -61,12 +60,12 @@ export const ROLE_NAV: Record<UserRole, AppNavGroup[]> = {
         { label: "Pages", href: "/admin/pages", icon: FileText },
       ],
     },
-    {
-      label: "Library",
-      items: [
-        { label: "Working services", href: "/admin/working-services", icon: Code2 },
-      ],
-    },
+    // {
+    //   label: "Library",
+    //   items: [
+    //     { label: "Working services", href: "/admin/working-services", icon: Code2 },
+    //   ],
+    // },
     {
       label: "Settings",
       items: [
